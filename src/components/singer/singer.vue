@@ -1,8 +1,9 @@
 <template>
     <div class="singer">
-        <list-view :data="singers">
+        <list-view :data="singers" @select="selectSinger">
 
         </list-view>
+        <router-view></router-view>
     </div>
 </template>
 <script >
@@ -27,6 +28,14 @@ const HOT_SINGER_LEN = 10
              this._getSingerList();
          },
          methods: {
+             selectSinger (singer) {
+                 console.log('====================================');
+                 console.log(singer.id);
+                 console.log('====================================');
+                 this.$router.push( {
+                     path: `/singer/${singer.id}`
+                 } )
+             },
              _getSingerList() {
                 getSingerList().then((res) => {
                 if (res.code === ERR_OK) {

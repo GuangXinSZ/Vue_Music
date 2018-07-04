@@ -1,10 +1,10 @@
 <template>
   <scroll class="listview" :data="data" ref="listview">
       <ul>
-        <li  v-for="group in data" class="list-group" ref="listGroup">
+        <li  v-for="group in data" class="list-group" ref="listGroup" >
           <h2 class="list-group-title">{{ group.title }}</h2>
           <ul>
-            <li v-for="item in group.items" class="list-group-item">
+            <li v-for="item in group.items" class="list-group-item"  @click="selectItem(item)" >
                 <img class="avatar" :src="item.avatar" />
                 <span class="name">{{ item.name }}</span>
             </li>
@@ -13,7 +13,7 @@
       </ul>
       <div class="list-shortcut" @touchstart="onShortcutList" @touchmove.stop.prevent="onShortcutMove">
         <ul>
-          <li v-for="(item,index) in shortcutList" class="item" :data-index="index" >
+          <li v-for="(item,index) in shortcutList" class="item" :data-index="index"  >
             {{ item }}
           </li>
         </ul>
@@ -68,6 +68,10 @@ const ANCHOR_HEIGHT = 18
       },
       _scrollTo(index) {
          this.$refs.listview.scrollToElement(this.$refs.listGroup[index],0)
+      },
+      selectItem(item) {
+       
+        this.$emit('select',item)
       }
     },
     components: {
