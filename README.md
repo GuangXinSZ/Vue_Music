@@ -19,3 +19,7 @@ npm run build --report
 ```
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+
+# music
+![image_text](https://raw.githubusercontent.com/AnimationXin/JavaScript/master/%E4%BB%8E0%E5%BC%80%E5%A7%8B/images/singer1.png)
+![image_text](https://raw.githubusercontent.com/AnimationXin/JavaScript/master/%E4%BB%8E0%E5%BC%80%E5%A7%8B/images/singer2.png)
