@@ -1,23 +1,30 @@
 <!--  -->
 <template>
 <transition name="slide">
-  <div class="singermain">22222</div>
+    <div class="singermain">22222</div>
 </transition>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { getSingerDetail } from '../../api/singer'
+import { ERR_OK } from '../../api/config'
+import { Song,createSong } from '../../common/js/song'
 export default {
   data () {
     return {
+        songs: []
     };
   },
 
   components: {
     
   },
-
+  created() {
+      this._GetDetail()
+  },
   computed: {
+      //mutation
       ...mapGetters([
           'singer'
       ])
@@ -25,7 +32,34 @@ export default {
   mounted(){
       console.log(this.singer)
   },
-  methods: {}
+  methods: {
+      _GetDetail() {
+          if(!this.singer.id){
+              this.$router.push('/singer')
+              return false
+          }
+          //jsonp数据
+          getSingerDetail(this.singer.id).then( (res) => {
+              if(res.code === ERR_OK) {
+                  //调用_normalizeSongs 获取列表歌曲
+                 this.songs = this._normalizeSongs(res.data.list)
+              }
+          } )
+      },
+      _normalizeSongs(list) {
+          let ret = []
+          //对象取值
+          list.forEach( (item) => {
+              let { musicData } = item
+              //必须传2个id过去
+              if( musicData.songid && musicData.albummid ) {
+                  ret.push(createSong(musicData))
+              }
+          })
+          //返回数据
+          return ret
+      }
+  }
 }
 
 </script>
