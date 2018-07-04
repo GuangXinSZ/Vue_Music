@@ -6,16 +6,25 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
     };
   },
 
-  components: {},
+  components: {
+    
+  },
 
-  computed: {},
-
+  computed: {
+      ...mapGetters([
+          'singer'
+      ])
+  },
+  mounted(){
+      console.log(this.singer)
+  },
   methods: {}
 }
 
