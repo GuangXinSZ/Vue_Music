@@ -1,7 +1,8 @@
 <!--  -->
 <template>
+
 <transition name="slide">
-    <div class="singermain">22222</div>
+    <music-list :title="title" :bgImage="bgImage" :songs="songs"></music-list>
 </transition>
 </template>
 
@@ -10,6 +11,7 @@ import { mapGetters } from 'vuex'
 import { getSingerDetail } from '../../api/singer'
 import { ERR_OK } from '../../api/config'
 import { Song,createSong } from '../../common/js/song'
+import MusicList from '../music-llist/music-list'
 export default {
   data () {
     return {
@@ -18,19 +20,29 @@ export default {
   },
 
   components: {
+    MusicList,
     
   },
   created() {
       this._GetDetail()
+      
   },
   computed: {
       //mutation
       ...mapGetters([
           'singer'
-      ])
+      ]),
+      title(){
+          return this.singer.name
+      },
+      bgImage(){
+          return this.singer.avatar
+      }
   },
   mounted(){
-      console.log(this.singer)
+     console.log('====================================');
+     console.log(this.songs);
+     console.log('====================================');
   },
   methods: {
       _GetDetail() {
@@ -42,7 +54,7 @@ export default {
           getSingerDetail(this.singer.id).then( (res) => {
               if(res.code === ERR_OK) {
                   //调用_normalizeSongs 获取列表歌曲
-                 this.songs = this._normalizeSongs(res.data.list)
+                 this.songs = this._normalizeSongs(res.data.list) 
               }
           } )
       },

@@ -1,7 +1,6 @@
 <template>
     <div class="singer">
         <list-view :data="singers" @select="selectSinger">
-
         </list-view>
         <router-view></router-view>
     </div>
