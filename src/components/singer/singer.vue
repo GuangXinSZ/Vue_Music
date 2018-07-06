@@ -28,12 +28,14 @@ const HOT_SINGER_LEN = 10
              this._getSingerList();
          },
          methods: {
+             //跳转路由
              selectSinger (singer) {
                  this.$router.push( {
                      path: `/singer/${singer.id}`
                  })
                  this.setSinger(singer)
              },
+             //获取数据
              _getSingerList() {
                 getSingerList().then((res) => {
                 if (res.code === ERR_OK) {
@@ -84,6 +86,7 @@ const HOT_SINGER_LEN = 10
            })
            return hot.concat(ret);
         },
+        //使用mutations插件
         ...mapMutations({
             setSinger: 'SET_SINGER'
         })

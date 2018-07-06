@@ -2,18 +2,18 @@
 <template>
   <div class="music-list">
     <div class="back" @click="back">
-      <i class="icon-back"></i>
+       <i class="icon-back">fanhui</i>
     </div>
     <h1 class="title" v-html="title"></h1>
     <div class="bg-image" :style="bgStyle" ref="bgImage">
-        <div class="filter" >
+        <div class="filter">
+
         </div>
     </div>
-        <scroll :data="songs" class="list" ref="list">
+        <scroll @scroll="scroll" :data="songs" class="list" ref="list">
             <div class="song-list-wrapper">
-                <song-list :songs="songs"></song-list>
+                <song-list :probe-type="probeType" :listen-scroll="listenScroll" :songs="songs"></song-list>
             </div>
-            
         </scroll> 
   </div>
 </template>
@@ -38,20 +38,20 @@ export default {
   },
   data () {
     return {
-       
+       scrollY: 0
     };
   },
   created(){
-     
+     this.probeType = 3
+     this.listenScroll = true
   },
-  mounted(){
+  mounted(){ 
       this.$refs.list.$el.style.top = `${this.$refs.bgImage.clientHeight}px`
   },
   components: {
       Scroll,
       SongList
   },
-
   computed: {
       bgStyle() {
           return `background-image: url(${this.bgImage})`
@@ -61,6 +61,11 @@ export default {
   methods: {
       back(){
           this.$router.back()
+      },
+      scroll(pos) {
+          console.log('====================================');
+          console.log(pos);
+          console.log('====================================');
       }
   }
 }
@@ -143,13 +148,11 @@ export default {
     .list
       position: fixed
       top: 0
-      overflow hidden
       bottom: 0
       width: 100%
       background: $color-background
-      
       .song-list-wrapper
-        padding: 20px 20px
+        padding: 10px 20px
       .loading-container
         position: absolute
         width: 100%
